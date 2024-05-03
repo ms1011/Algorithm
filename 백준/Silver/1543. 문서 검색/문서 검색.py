@@ -1,4 +1,1 @@
-a = input()
-b = input()
-
-print(a.count(b))
+print(input().count(input()))
