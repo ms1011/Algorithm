@@ -1,11 +1,8 @@
-import sys
+T = int(input())
 
+for i in range(T):
+    R, S = map(str, input().split())
 
-t = int(sys.stdin.readline())
-
-for i in range(t):
-    r, s = sys.stdin.readline().split()
-    for j in range(len(s)):
-        print(s[j] * int(r), end='')
+    for j in S:
+        print(int(R) * j, end='')
     print()
-
