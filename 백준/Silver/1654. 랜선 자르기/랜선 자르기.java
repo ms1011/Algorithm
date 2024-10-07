@@ -2,37 +2,34 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
     static int K, N;
-    static int[] LAN;
+    static int[] A;
 
     static void input() {
         K = scan.nextInt();
         N = scan.nextInt();
-        LAN = new int[K + 1];
+        A = new int[K + 1];
         for (int i = 1; i <= K; i++) {
-            LAN[i] = scan.nextInt();
+            A[i] = scan.nextInt();
         }
     }
 
     static boolean determination(long len) {
-        long sum = 0;
+        long cnt = 0;
         for (int i = 1; i <= K; i++) {
-            sum += LAN[i] / len;
+            cnt +=  A[i] / len;
         }
 
-        return sum >= N;
+        return cnt >= N;
     }
 
     static void pro() {
         long L = 1, R = Integer.MAX_VALUE, ans = 0;
-
         while (L <= R) {
-            long mid = (L + R) / 2;
-
+            long mid = (L+R) / 2;
             if (determination(mid)) {
                 ans = mid;
                 L = mid + 1;
@@ -40,7 +37,6 @@ public class Main {
                 R = mid - 1;
             }
         }
-
         System.out.println(ans);
     }
 
