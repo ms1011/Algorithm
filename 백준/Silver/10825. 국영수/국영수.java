@@ -1,54 +1,98 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
+    static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static void input() {
-        Scanner sc = new Scanner(System.in);
-        N = sc.nextInt();
-        a = new Elem[N];
-
-        for (int i = 0; i < N; i++) {
-            a[i] = new Elem();
-            a[i].name = sc.next();
-            a[i].korean = sc.nextInt();
-            a[i].english = sc.nextInt();
-            a[i].math = sc.nextInt();
-        }
-    }
-
     static int N;
-    static Elem[] a;
+    static Elem[] student;
 
     static class Elem implements Comparable<Elem> {
-
         public String name;
-        public int korean, english, math;
+        public int kor, eng, math;
 
         @Override
         public int compareTo(Elem other) {
-            // 국어 점수 내림차순
-            if (korean != other.korean) return other.korean - korean;
-            // 영어 점수 오름차순
-            if (english != other.english) return english - other.english;
-            // 수학 점수 내림차순
+            if (kor != other.kor) return other.kor - kor;
+            if (eng != other.eng) return eng - other.eng;
             if (math != other.math) return other.math - math;
-            // 이름 순으로 정렬 - String 에 compareTo 내장
+
             return name.compareTo(other.name);
         }
     }
 
-    static void pro() {
-        Arrays.sort(a);
+    static void input() {
+        N = scan.nextInt();
+        student = new Elem[N];
 
-        for (Elem elem : a) {
-            sb.append(elem.name).append('\n');
+        for (int i = 0; i < N; i++) {
+            student[i] = new Elem();
+            student[i].name = scan.next();
+            student[i].kor = scan.nextInt();
+            student[i].eng = scan.nextInt();
+            student[i].math = scan.nextInt();
         }
-        System.out.println(sb.toString());
+    }
+
+    static void pro() {
+        Arrays.sort(student);
+
+        for (int i = 0; i < N; i++) {
+            sb.append(student[i].name).append('\n');
+        }
+        System.out.println(sb);
     }
 
     public static void main(String[] args) {
         input();
         pro();
+    }
+
+
+    static class FastReader {
+        BufferedReader br;
+        StringTokenizer st;
+
+        public FastReader() {
+            br = new BufferedReader(new InputStreamReader(System.in));
+        }
+
+        public FastReader(String s) throws FileNotFoundException {
+            br = new BufferedReader(new FileReader(new File(s)));
+        }
+
+        String next() {
+            while (st == null || !st.hasMoreElements()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+
+        double nextDouble() {
+            return Double.parseDouble(next());
+        }
+
+        String nextLine() {
+            String str = "";
+            try {
+                str = br.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
     }
 }
