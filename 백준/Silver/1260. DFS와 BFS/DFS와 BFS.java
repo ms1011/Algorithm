@@ -6,27 +6,24 @@ public class Main {
     static StringBuilder sb = new StringBuilder();
 
     static int N, M, V;
-    static ArrayList<Integer>[] arr;
+    static ArrayList<Integer>[] adj;
     static boolean[] visit;
 
     static void input() {
         N = scan.nextInt();
         M = scan.nextInt();
         V = scan.nextInt();
-        arr = new ArrayList[N + 1];
+        adj = new ArrayList[N + 1];
         visit = new boolean[N + 1];
         for (int i = 1;i <= N; i++)
-            arr[i] = new ArrayList<>();
+            adj[i] = new ArrayList<>();
         
-        for (int i = 1; i <= M; i++) {
+        for (int i = 0; i < M; i++) {
             int x = scan.nextInt();
             int y = scan.nextInt();
-            arr[x].add(y);
-            arr[y].add(x);
-        }
 
-        for (int i = 1; i <= N; i++) {
-            Collections.sort(arr[i]);
+            adj[x].add(y);
+            adj[y].add(x);
         }
     }
 
@@ -35,7 +32,7 @@ public class Main {
         visit[x] = true;
         sb.append(x).append(' ');
 
-        for (int y : arr[x]) {
+        for (int y : adj[x]) {
             if (visit[y]) continue;
 
             dfs(y);
@@ -51,9 +48,9 @@ public class Main {
 
         while (!que.isEmpty()) {
             int x = que.poll();
-
             sb.append(x).append(' ');
-            for (int y : arr[x]) {
+
+            for (int y : adj[x]) {
                 if (visit[y]) continue;
 
                 que.add(y);
@@ -63,11 +60,15 @@ public class Main {
     }
 
     static void pro() {
+        // 모든 x에 대해서 adj[x] 정렬하기
+        for (int i = 1; i <= N; i++) {
+            Collections.sort(adj[i]);
+        }        
+        
+        // DFS, BFS 결과 구하기
         dfs(V);
         sb.append('\n');
-        for (int i = 1; i <= N; i++) {
-            visit[i] = false;
-        }
+        for (int i = 0; i <= N; i++) visit[i] = false;
         bfs(V);
 
         System.out.println(sb);
